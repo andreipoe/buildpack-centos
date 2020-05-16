@@ -1,0 +1,100 @@
+---
+kind: pipeline
+type: docker
+name: build-aarch64
+
+platform:
+  arch: arm64
+  os: linux
+
+steps:
+  - name: build-7
+    image: plugins/docker
+    settings:
+      repo: andreipoe/buildpack-centos
+      tags:
+        - 7-aarch64
+      dockerfile: 7/Dockerfile
+      username: andreipoe
+      password:
+        from_secret: docker_token
+  - name: build-8
+    image: plugins/docker
+    settings:
+      repo: andreipoe/buildpack-centos
+      tags:
+        - 8-aarch64
+        - latest-aarch64
+      dockerfile: 8/Dockerfile
+      username: andreipoe
+      password:
+        from_secret: docker_token
+    when:
+      status: [success, failure]
+
+---
+kind: pipeline
+type: docker
+name: build-amd64
+
+platform:
+  arch: amd64
+  os: linux
+
+steps:
+  - name: build-7
+    image: plugins/docker
+    settings:
+      repo: andreipoe/buildpack-centos
+      tags:
+        - 7-amd64
+      dockerfile: 7/Dockerfile
+      username: andreipoe
+      password:
+        from_secret: docker_token
+  - name: build-8
+    image: plugins/docker
+    settings:
+      repo: andreipoe/buildpack-centos
+      tags:
+        - 8-amd64
+        - latest-amd64
+      dockerfile: 8/Dockerfile
+      username: andreipoe
+      password:
+        from_secret: docker_token
+    when:
+      status: [success, failure]
+
+---
+kind: pipeline
+type: docker
+name: multiarch-manifest
+
+steps:
+  - name: manifest-7
+    image: plugins/manifest
+    settings:
+      target: andreipoe/buildpack-centos
+      spec: 7/manifest-spec.yml
+      username: andreipoe
+      password:
+        from_secret: docker_token
+  - name: manifest-8
+    image: plugins/manifest
+    settings:
+      target: andreipoe/buildpack-centos
+      spec: 8/manifest-spec.yml
+      username: andreipoe
+      password:
+        from_secret: docker_token
+
+depends_on: [build-aarch64, build-amd64]
+trigger:
+  status: [success, failure]
+
+---
+kind: signature
+hmac: 3d2f7f012c626510c5c427311f9a8dd00e917e203d9f40c2063acfcb5fe1ccaf
+
+...

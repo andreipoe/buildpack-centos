@@ -1,0 +1,11 @@
+image: andreipoe/buildpack-centos:7
+
+manifests:
+  - image: andreipoe/buildpack-centos:7-aarch64
+    platform:
+      architecture: arm64
+      os: linux
+  - image: andreipoe/buildpack-centos:7-amd64
+    platform:
+      architecture: amd64
+      os: linux

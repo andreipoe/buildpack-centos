@@ -1,0 +1,12 @@
+image: andreipoe/buildpack-centos:8
+tags: [latest]
+
+manifests:
+  - image: andreipoe/buildpack-centos:8-aarch64
+    platform:
+      architecture: arm64
+      os: linux
+  - image: andreipoe/buildpack-centos:8-amd64
+    platform:
+      architecture: amd64
+      os: linux
