@@ -18,6 +18,7 @@ steps:
       username: andreipoe
       password:
         from_secret: docker_token
+    depends_on: [clone]
   - name: build-8
     image: plugins/docker
     settings:
@@ -29,6 +30,7 @@ steps:
       username: andreipoe
       password:
         from_secret: docker_token
+    depends_on: [clone]
     when:
       status: [success, failure]
 
@@ -52,6 +54,7 @@ steps:
       username: andreipoe
       password:
         from_secret: docker_token
+    depends_on: [clone]
   - name: build-8
     image: plugins/docker
     settings:
@@ -63,6 +66,7 @@ steps:
       username: andreipoe
       password:
         from_secret: docker_token
+    depends_on: [clone]
     when:
       status: [success, failure]
 
@@ -95,6 +99,6 @@ trigger:
 
 ---
 kind: signature
-hmac: 3d2f7f012c626510c5c427311f9a8dd00e917e203d9f40c2063acfcb5fe1ccaf
+hmac: c7cb2ef2e5e6887574be04893f23fe7fce63fd6b653823f5ea7461df7cb451c3
 
 ...

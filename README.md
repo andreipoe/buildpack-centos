@@ -1,6 +1,7 @@
 # CentOS Buildpack
 
 [![Build Status](https://github.drone.simd.stream/api/badges/andreipoe/buildpack-centos/status.svg)](https://github.drone.simd.stream/andreipoe/buildpack-centos)
+[![Image Size](https://img.shields.io/docker/image-size/andreipoe/buildpack-centos)](https://hub.docker.com/r/andreipoe/buildpack-centos)
 
 This is a CentOS developemnt container meant to be used as a base for other images.
 It comes with many common build dependencies pre-installed.
